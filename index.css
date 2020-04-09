@@ -1,0 +1,316 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+input,
+input[type='button'],
+button {
+  -webkit-appearance: none;
+}
+a,
+a:visited {
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+}
+div,
+a,
+img {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+}
+ul {
+  list-style: none;
+}
+.fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 99;
+  display: none;
+}
+.clearFloat {
+  clear: both;
+}
+.white {
+  color: white;
+}
+.center {
+  text-align: center;
+}
+/* .messageBox {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.72);
+  color: white;
+  padding: 0.2rem;
+  border-radius: 0.09rem;
+  font-size: 0.28rem;
+  z-index: 999;
+} */
+body {
+  background: #C70529;
+  background-size: 100% auto;
+  -webkit-overflow-scrolling: touch;
+}
+#index {
+  width: 100%;
+  height: 100%;
+}
+.drum2 {
+  display: none;
+  margin-top: 3rem;
+}
+.drum-img2 {
+  width: 3.6rem;
+  height: 6.2rem;
+  margin: 0 auto;
+
+  animation: sharkDrum 0.6s linear infinite;
+  -webkit-transform-origin: center bottom;
+  transform-origin: center center;
+}
+@keyframes sharkDrum {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(5px, -5px) rotate(15deg);
+  }
+  75% {
+    transform: translate(-5px, -5px) rotate(-15deg);
+  }
+}
+.drum2 p {
+  text-align: center;
+  color: white;
+  font-size: 0.3rem;
+  letter-spacing: 2px;
+  margin-top: 0.5rem;
+}
+ .drum2 p span {
+  display: inline-block;
+  vertical-align: middle;
+  width: 3px;
+  height: 3px;
+  margin: 0 3px;
+  border-radius: 50%;
+  background: white;
+}
+ .drum2 p span:nth-of-type(1) {
+  animation: loading 1s 0.2s linear infinite;
+}
+.drum2 p span:nth-of-type(2) {
+  animation: loading 1s 0.4s linear infinite;
+}
+.drum2 p span:nth-of-type(3) {
+  animation: loading 1s 0.8s linear infinite;
+}
+@keyframes loading {
+  0%,
+  60%,
+  100% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(2);
+  }
+}
+.extract-btn {
+  width: 4.9rem;
+  height: 1.8rem;
+  background: url("btn-bg.png") no-repeat;
+  background-size: 100% 100%;
+  color: #C70529;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.65rem;
+  font-size: 0.4rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+#lots {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+#lots .my-goodLot {
+  padding-top: 0.3rem;
+  box-sizing: border-box;
+  background: url(wsjyl-fx.jpg) no-repeat;
+  background-size: 100% auto;
+  height: 100vh;
+}
+#lots .my-goodLot .lot-txt {
+  text-align: center;
+  color: white;
+  line-height: 0.65rem;
+}
+#lots .my-goodLot .lot-txt p:nth-of-type(1) {
+  font-size: 0.44rem;
+}
+#lots .my-goodLot .lot-txt p:nth-of-type(1) b {
+  color: #FFD02A;
+}
+#lots .my-goodLot .lot-txt p:nth-of-type(2) {
+  font-size: 0.3rem;
+  color: #FFD02A;
+}
+#lots .my-goodLot .lot-img {
+/*   background: url("light.png") center no-repeat;
+background-size: 100% auto; */
+  position: absolute;
+  left: 0;
+  top:1rem;
+  width: 100%;
+  height: 10rem;
+  overflow: hidden;
+}
+#lots .my-goodLot .lot-img .img {width: 8rem;
+  height: auto;
+  margin: 0 auto;
+  text-align: center;
+  background: none;
+}
+
+.img img{width:60%;}
+
+#lots .my-goodLot .lot-img .img.up {
+  animation: up 0.8s linear;
+}
+@keyframes up {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+#lots .my-goodLot .lot-img .rat {
+  background: url("lot-rat.png") center no-repeat;
+  background-size: auto 100%;
+}
+#lots .my-goodLot .lot-img .cow {
+  background: url("lot-cow.png") center no-repeat;
+  background-size: auto 100%;
+}
+#lots .my-goodLot .lot-img .tigger {
+  background: url("lot-tigger.png") center no-repeat;
+  background-size: auto 100%;
+}
+#lots .my-goodLot .lot-img .rabbit {
+  background: url("lot-rabbit.png") center no-repeat;
+  background-size: auto 100%;
+}
+#lots .my-goodLot .lot-img .dragon {
+  background: url("lot-dragon.png") center no-repeat;
+  background-size: auto 100%;
+}
+#lots .my-goodLot .lot-img .snake {
+  background: url("lot-snake.png") center no-repeat;
+  background-size: auto 100%;
+}
+#lots .my-goodLot .lot-img .horse {
+  background: url("lot-horse.png") center no-repeat;
+  background-size: auto 100%;
+}
+#lots .my-goodLot .lot-img .sheep {
+  background: url("lot-sheep.png") center no-repeat;
+  background-size: auto 100%;
+}
+#lots .my-goodLot .lot-img .monkey {
+  background: url("lot-monkey.png") center no-repeat;
+  background-size: auto 100%;
+}
+#lots .my-goodLot .lot-img .chicken {
+  background: url("lot-chicken.png") center no-repeat;
+  background-size: auto 100%;
+}
+#lots .my-goodLot .lot-img .dog {
+  background: url("lot-dog.png") center no-repeat;
+  background-size: auto 100%;
+}
+#lots .my-goodLot .lot-img .pig {
+  background: url("lot-pig.png") center no-repeat;
+  background-size: auto 100%;
+}
+#lots .my-goodLot .ewmShow {
+  display: none;
+  width: 100%;
+  height: 2rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  z-index: 55;
+}
+#lots .my-goodLot .ewmShow div {
+  vertical-align: top;
+  color: #CA0529;
+  font-size: 0.24rem;
+  text-align: left;
+  display: inline-block;
+  margin: 0.7rem 1.5rem 0 0;
+}
+#lots .my-goodLot .ewmShow img {
+  height: 1.5rem;
+  margin-top: 0.25rem;
+}
+/* #lots .bottom-cloud {
+  height: 3rem;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  width: 100%;
+}
+#lots .bottom-cloud img {
+  width: 100%;
+  height: 100%;
+} */
+#lots .btns {
+  padding: 0 0.3rem 0.55rem;
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  z-index: 5;
+}
+#lots .btns div {
+  height: 0.9rem;
+  line-height: 0.88rem;
+  background: url("btn-bg2.png") no-repeat;
+  background-size: 100% 100%;
+  margin: 0 0.15rem;
+  text-align: center;
+  width: calc(50% - .3rem);
+  color: #C70529;
+  font-size: 0.3rem;
+  font-weight: 600;
+  box-sizing: border-box;
+  float: left;
+}
+#lots aside {
+  display: none;
+  text-align: center;
+  font-size: 0.29rem;
+  position: absolute;
+  width: 100%;
+  bottom: 0.7rem;
+  color: #C70529;
+  z-index: 244;
+}
