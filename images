@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- <link rel="stylesheet" href="css/loading.css"> -->
+    <link rel="stylesheet" href="images/index.css">
+    <script src="images/jquery-1.9.1.min.js"></script>
+    <script src="images/rem2.js"></script>
+    <script src="images/html2canvas.js"></script>
+    <script src="images/canvas2Image.js"></script>
+    <title>H5保存图片</title>
+</head>
+<body>
+
+<!-- <div id="index"></div>
+    抽签筒
+    <div class="drum">
+        开始抽签
+        
+    </div> -->
+<div class="extract-btn">开始<i></i>旺签</div>
+    <!--抽签中-->
+    <div class="drum2">
+   <!--      <div class="drum-img2"></div>
+   <p>图片生成中<span></span><span></span><span></span></p> -->
+    </div>
+   <!--  <div class="messageBox"></div> -->
+
+<!--我的旺签-->
+<div id="lots">
+    <div class="my-goodLot" style="padding-top: .8rem">
+        <div class="lot-txt">
+            <p>新年旺签<c>是：<b></b></c></p>
+            <p class="saying"></p>
+        </div>
+        <div class="lot-img">
+            <div class="img up" style="">
+                <img src="images/lot-chicken.png">
+            </div>
+        </div>
+       <!--  <div class="bottom-cloud">
+           <img src="images/bottom-cloud.png" >
+       </div> -->
+        <section class="ewmShow">
+            <div>
+                识别右侧二维码<br>
+                快来为英烈献花吧！
+            </div>
+            <img src="images/ewm.png" >
+        </section>
+    </div>
+    <div class="btns">
+        <div class="onceAgain" onclick="$('#lots').hide();$('#index,.drum').show()">再试一次</div>
+        <div class="createPicture">生成图片</div>
+    </div>
+    <aside class="save-txt" style="bottom:1.5rem">长按保存图片</aside>
+</div>
+</body>
+<script>
+    $(function(){
+        // 开始抽签
+        $(".extract-btn").on("click",function(){
+            draw();
+        });
+        var id = Math.floor(Math.random()*4+1);//控制抽到的生肖
+        // 抽签的方法
+        var dataLots = [
+            {id:1,animal:"鼠",class:"n01",txt:"数（鼠）一数二"},
+            {id:2,animal:"牛",class:"n02",txt:"扭（牛）转乾坤"},
+            {id:3,animal:"虎",class:"n03",txt:"虎虎生威"},
+            {id:4,animal:"兔",class:"n04",txt:"前途（兔）无量"},
+            {id:5,animal:"龙",class:"n05",txt:"八面玲珑（龙）"}
+        ];
+        var sharkBoolean = true; // 禁止在抽签过程中再次触发摇一摇
+
+
+        function draw(){
+            sharkBoolean = false;
+            $('.drum').hide();
+            $(".my-goodLot .lot-txt b").html(dataLots[id-1].animal);
+            $(".saying").html(dataLots[id-1].txt);
+            $(".my-goodLot .lot-img .img img").attr("src","images/jyl2020-"+dataLots[id-1].class+".png");
+         /*   setTimeout(function(){
+                audioAutoPlay();
+            },1000)*/;
+            $('.drum2').show().delay(500).fadeOut(function(){
+                $('#index').hide();
+                $("#lots").show();
+                sharkBoolean = true;
+            });
+        }
+        // 生成图片
+        $(".createPicture").on("click",function() {
+            $(".ewmShow").show();
+            $(".lot-txt c").show();
+            $(".lot-img .img").removeClass("up");
+            var cntElem = $('.my-goodLot')[0];
+            var shareContent = cntElem;//需要截图的包裹的（原生的）DOM 对象
+            var width = shareContent.offsetWidth; //获取dom 宽度
+            var height = shareContent.offsetHeight; //获取dom 高度
+            var canvas = document.createElement("canvas"); //创建一个canvas节点
+            var scale = 2; //定义任意放大倍数 支持小数
+            canvas.width = width * scale; //定义canvas 宽度 * 缩放
+            canvas.height = height * scale; //定义canvas高度 *缩放
+            canvas.getContext("2d").scale(scale, scale); //获取context,设置scale
+            var opts = {
+                scale: scale, // 添加的scale 参数
+                canvas: canvas, //自定义 canvas
+                // logging: true, //日志开关，便于查看html2canvas的内部执行流程
+                width: width, //dom 原始宽度
+                height: height,
+                useCORS: true // 【重要】开启跨域配置
+            };
+            html2canvas(shareContent, opts).then(function (canvas) {
+                var context = canvas.getContext('2d');
+                // 【重要】关闭抗锯齿
+                context.mozImageSmoothingEnabled = false;
+                context.webkitImageSmoothingEnabled = false;
+                context.msImageSmoothingEnabled = false;
+                context.imageSmoothingEnabled = false;
+                // 【重要】默认转化的格式为png,也可设置为其他格式
+                var img = Canvas2Image.saveAsPNG(canvas, canvas.width, canvas.height);
+                document.body.appendChild(img);
+                $(".save-txt").show();//显示长按保存
+                $(img).css({
+                    "width": canvas.width / 2 + "px",
+                    "height": canvas.height / 2 + "px",
+                    "position":"fixed",
+                    "top":"0",
+                    "left":"0",
+                    "opacity":"1",
+                    "z-index":222
+                }).addClass('f-full').on("click",function(){
+                    $(".save-txt").hide();
+                    $(this).remove();
+                    $(".ewmShow").hide();
+                });
+            });
+        });
+
+        // 摇一摇事件
+        var shakeThreshold = 2000; // 定义一个摇动的阈值
+        var lastUpdate = 0; // 记录上一次摇动的时间
+        var x, y, z, lastX, lastY, lastZ; // 定义x、y、z记录三个轴的数据以及上一次触发的数据
+
+        // 监听传感器运动事件
+        if (window.DeviceMotionEvent) {
+            window.addEventListener('devicemotion', deviceMotionHandler, false);
+        } else {
+            console.log('天呐，你的手机竟然还不支持摇一摇ヾ(◍°∇°◍)ﾉﾞ，你也可以点击下方的“开始旺签”参与抽奖');
+        }
+        // 运动传感器处理
+        function deviceMotionHandler(eventData) {
+            if(phoneBoolean && sharkBoolean){
+                var acceleration = eventData.accelerationIncludingGravity; // 获取含重力的加速度
+                var curTime = new Date().getTime();
+                // 100毫秒进行一次位置判断
+                if ((curTime - lastUpdate) > 100) {
+                    var diffTime = curTime - lastUpdate;
+                    lastUpdate = curTime;
+                    x = acceleration.x;
+                    y = acceleration.y;
+                    z = acceleration.z;
+                    var speed = Math.abs(x + y + z - lastX - lastY - lastZ) / diffTime * 10000;
+                    if (speed > shakeThreshold) {
+                        //摇一摇触发
+                        draw();
+                    }
+                    lastX = x;
+                    lastY = y;
+                    lastZ = z;
+                }
+            }
+        }
+    });
+/*    document.onreadystatechange = completeLoading;
+    function completeLoading() {
+        if (document.readyState == "complete") {
+            $('.fakeloader').hide();
+        }
+    }*/
+</script>
+</html>
